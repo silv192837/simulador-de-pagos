@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Interés - Chiapas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #219150;
+    }
+    .result {
+      margin-top: 20px;
+      background-color: #ecf0f1;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    .result p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simulador gratuito para personas de Chiapas</h1>
+  <div class="input-group">
+    <label for="capital">Costo del producto o servicio (capital):</label>
+    <input type="number" id="capital" placeholder="Ej. 10000">
+  </div>
+  <div class="input-group">
+    <label for="pagos">Número de pagos:</label>
+    <input type="number" id="pagos" placeholder="Ej. 12">
+  </div>
+  <div class="input-group">
+    <label for="montoPago">Monto de cada pago:</label>
+    <input type="number" id="montoPago" placeholder="Ej. 1000">
+  </div>
+  <div class="input-group">
+    <label for="comisiones">Comisiones (si aplica):</label>
+    <input type="number" id="comisiones" placeholder="Ej. 500">
+  </div>
+  <div class="input-group">
+    <label for="otrosCostos">Otros costos asociados (si aplica):</label>
+    <input type="number" id="otrosCostos" placeholder="Ej. 300">
+  </div>
+  <button onclick="calcularInteres()">Calcular Interés Total</button>
+
+  <div class="result" id="resultado" style="display:none">
+    <p><strong>Total pagado:</strong> $<span id="totalPagado"></span></p>
+    <p><strong>Total de cargos adicionales:</strong> $<span id="totalCargos"></span></p>
+    <p><strong>Total real pagado:</strong> $<span id="totalReal"></span></p>
+    <p><strong>Interés total en pesos:</strong> $<span id="interesPesos"></span></p>
+    <p><strong>Interés total en porcentaje:</strong> <span id="interesPorcentaje"></span>%</p>
+  </div>
+
+  <script>
+    function calcularInteres() {
+      const capital = parseFloat(document.getElementById('capital').value) || 0;
+      const pagos = parseInt(document.getElementById('pagos').value) || 0;
+      const montoPago = parseFloat(document.getElementById('montoPago').value) || 0;
+      const comisiones = parseFloat(document.getElementById('comisiones').value) || 0;
+      const otrosCostos = parseFloat(document.getElementById('otrosCostos').value) || 0;
+
+      const totalPagado = pagos * montoPago;
+      const totalCargos = comisiones + otrosCostos;
+      const totalReal = totalPagado + totalCargos;
+      const interesPesos = totalReal - capital;
+      const interesPorcentaje = ((interesPesos / capital) * 100).toFixed(2);
+
+      document.getElementById('totalPagado').textContent = totalPagado.toFixed(2);
+      document.getElementById('totalCargos').textContent = totalCargos.toFixed(2);
+      document.getElementById('totalReal').textContent = totalReal.toFixed(2);
+      document.getElementById('interesPesos').textContent = interesPesos.toFixed(2);
+      document.getElementById('interesPorcentaje').textContent = interesPorcentaje;
+      document.getElementById('resultado').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
